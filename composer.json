@@ -1,5 +1,5 @@
 {
-  "name": "my-project",
+  "name": "lakhani-haya/eventman",
   "description": "A simple PHP project",
   "require": {
     "php": "^7.4"
