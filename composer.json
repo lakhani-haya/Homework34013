@@ -1,7 +1,1 @@
-{
-  "name": "lakhani-haya/eventman",
-  "description": "A simple event management PHP project",
-  "require": {
-    "php": "^7.4 || ^8.0"
-  }
-}
+
