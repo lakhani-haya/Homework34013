@@ -1,19 +1,11 @@
-
 <?php
 include 'dbconfig.php';
 include 'view-header.php';
 
 $eventID = isset($_GET['event_id']) ? $_GET['event_id'] : null;
-
-if ($eventID) {
-    $query = "SELECT * FROM Participants WHERE EventID = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([$eventID]);
-} else {
-    $query = "SELECT * FROM Participants";
-    $stmt = $conn->query($query);
-}
-
+$query = "SELECT * FROM Participants" . ($eventID ? " WHERE EventID = ?" : "");
+$stmt = $conn->prepare($query);
+$stmt->execute($eventID ? [$eventID] : []);
 $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -31,8 +23,16 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tr>
             <td><?php echo htmlspecialchars($participant['ParticipantName']); ?></td>
             <td><?php echo htmlspecialchars($participant['Email']); ?></td>
-            <td><a href="tickets.php?participant_id=<?php echo $participant['ParticipantID']; ?>">View Tickets</a></td>
+            <td>
+                <!-- POST method used to send participant_id -->
+                <form method="POST" action="tickets.php">
+                    <input type="hidden" name="participant_id" value="<?php echo $participant['ParticipantID']; ?>">
+                    <button type="submit" class="btn btn-link">View Tickets</button>
+                </form>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+<a href="index.php">Back to Events</a>
+
