@@ -1,25 +1,35 @@
 <?php
 include 'dbconfig.php';
+include 'view-header.php';
 
-$sessionID = $_GET['session_id'];
-$query = "SELECT * FROM Speakers WHERE SessionID = ?";
-$stmt = $conn->prepare($query);
-$stmt->execute([$sessionID]);
+$sessionID = isset($_GET['session_id']) ? $_GET['session_id'] : null;
+
+if ($sessionID) {
+    $query = "SELECT * FROM Speakers WHERE SessionID = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$sessionID]);
+} else {
+    $query = "SELECT * FROM Speakers";
+    $stmt = $conn->query($query);
+}
+
 $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Speakers</title>
-</head>
-<body>
-    <h1>Speakers</h1>
-    <ul>
+<h1>Speakers</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Speaker Name</th>
+            <th>Topic</th>
+        </tr>
+    </thead>
+    <tbody>
         <?php foreach ($speakers as $speaker): ?>
-        <li><?php echo htmlspecialchars($speaker['SpeakerName']); ?> - Topic: <?php echo $speaker['Topic']; ?></li>
+        <tr>
+            <td><?php echo htmlspecialchars($speaker['SpeakerName']); ?></td>
+            <td><?php echo htmlspecialchars($speaker['Topic']); ?></td>
+        </tr>
         <?php endforeach; ?>
-    </ul>
-    <a href="index.php">Back to Events</a>
-</body>
-</html>
+    </tbody>
+</table>
