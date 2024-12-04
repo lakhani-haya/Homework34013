@@ -3,32 +3,13 @@ include 'dbconfig.php';
 $query = "SELECT * FROM Events";
 $stmt = $conn->query($query);
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Events</title>
-</head>
-<body>
-    <nav>
-        <a href="index.php">Events</a>
-        <a href="participants.php">Participants</a>
-        <a href="sessions.php">Sessions</a>
-        <a href="speakers.php">Speakers</a>
-    </nav>
-
+       <li class="nav-item">
+        <a class="nav-link" href="events.php">Events</a>
+       </li>
+     
     <h1>Events</h1>
     <table>
-        <thead>
-            <tr>
-                <th>Event Name</th>
-                <th>Event Date</th>
-                <th>Location</th>
-                <th>View Sessions</th>
-                <th>View Participants</th>
-            </tr>
-        </thead>
         <tbody>
             <?php foreach ($events as $event): ?>
             <tr>
