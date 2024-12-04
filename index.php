@@ -11,6 +11,24 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <title>Events</title>
     <style>
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Styling for the table */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -28,6 +46,14 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="events.php">Events</a>
+        <a href="participants.php">Participants</a>
+        <a href="sessions.php">Sessions</a>
+        <a href="speakers.php">Speakers</a>
+    </nav>
+
     <h1>Events</h1>
     <table>
         <thead>
@@ -53,4 +79,3 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </body>
 </html>
-
