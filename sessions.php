@@ -1,28 +1,38 @@
 <?php
 include 'dbconfig.php';
+include 'view-header.php';
 
-$eventID = $_GET['event_id'];
-$query = "SELECT * FROM Sessions WHERE EventID = ?";
-$stmt = $conn->prepare($query);
-$stmt->execute([$eventID]);
+$eventID = isset($_GET['event_id']) ? $_GET['event_id'] : null;
+
+if ($eventID) {
+    $query = "SELECT * FROM Sessions WHERE EventID = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$eventID]);
+} else {
+    $query = "SELECT * FROM Sessions";
+    $stmt = $conn->query($query);
+}
+
 $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sessions</title>
-</head>
-<body>
-    <h1>Sessions</h1>
-    <ul>
+<h1>Sessions</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Session Name</th>
+            <th>Duration</th>
+            <th>View Speakers</th>
+        </tr>
+    </thead>
+    <tbody>
         <?php foreach ($sessions as $session): ?>
-        <li>
-            <?php echo htmlspecialchars($session['SessionName']); ?> (<?php echo $session['Duration']; ?>)
-            <a href="speakers.php?session_id=<?php echo $session['SessionID']; ?>">View Speakers</a>
-        </li>
+        <tr>
+            <td><?php echo htmlspecialchars($session['SessionName']); ?></td>
+            <td><?php echo htmlspecialchars($session['Duration']); ?></td>
+            <td><a href="speakers.php?session_id=<?php echo $session['SessionID']; ?>">View Speakers</a></td>
+        </tr>
         <?php endforeach; ?>
-    </ul>
-    <a href="index.php">Back to Events</a>
-</body>
-</html>
+    </tbody>
+</table>
+
