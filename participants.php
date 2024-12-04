@@ -1,6 +1,4 @@
 
-php
-Copy code
 <?php
 include 'dbconfig.php';
 include 'view-header.php';
