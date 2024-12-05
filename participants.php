@@ -24,12 +24,15 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo htmlspecialchars($participant['ParticipantName']); ?></td>
             <td><?php echo htmlspecialchars($participant['Email']); ?></td>
             <td>
-                <!-- POST method used to send participant_id -->
                 <form method="POST" action="tickets.php">
                     <input type="hidden" name="participant_id" value="<?php echo $participant['ParticipantID']; ?>">
                     <button type="submit" class="btn btn-link">View Tickets</button>
                 </form>
             </td>
+             <td>
+                    <a href="edit_participant.php?id=<?php echo $participant['ParticipantID']; ?>">Edit</a>
+                    <a href="delete_participant.php?id=<?php echo $participant['ParticipantID']; ?>">Delete</a>
+           </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
