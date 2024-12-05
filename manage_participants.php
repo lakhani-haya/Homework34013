@@ -4,32 +4,23 @@ include 'dbconfig.php';
 $action = $_GET['action'] ?? '';
 $eventID = $_GET['event_id'] ?? 0;
 
-<?php
-include 'dbconfig.php';
-
-$action = $_GET['action'] ?? '';
-
 if ($action == 'add') {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $eventID = $_POST['event_id'];
+    $event_id = $_POST['event_id'];
 
-    // Insert into database
     $query = "INSERT INTO Participants (ParticipantName, Email, EventID) VALUES (:name, :email, :event_id)";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':event_id', $eventID);
+    $stmt->bindParam(':event_id', $event_id);
     $stmt->execute();
 
-    // Redirect back with a success message
     session_start();
     $_SESSION['message'] = "Participant added successfully.";
-    header("Location: participants.php");
+    header("Location: participants.php?event_id=$eventID");
     exit;
 }
-?>
-
 
 if ($action == 'edit') {
     $id = $_POST['id'];
@@ -63,4 +54,3 @@ if ($action == 'delete') {
     exit;
 }
 ?>
-
