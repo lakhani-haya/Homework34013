@@ -12,6 +12,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="row">
   <div class="col">
     <h1>Participants</h1>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   </div>
   <div class="col-auto">
     <!-- Button to trigger modal -->
