@@ -101,10 +101,32 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Toast Notification -->
+    <?php if (isset($_SESSION['message'])): ?>
+      <div class="toast align-items-center text-bg-success border-0 position-fixed top-0 end-0 p-3" id="liveToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            <?php echo $_SESSION['message']; ?>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+      <?php unset($_SESSION['message']); ?>
+    <?php endif; ?>
   </div>
 
   <!-- Bootstrap JS and necessary scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Display toast notification if any message is set
+    const toastEl = document.getElementById('liveToast');
+    if (toastEl) {
+      const toast = new bootstrap.Toast(toastEl);
+      toast.show();
+    }
+  </script>
+
 </body>
 </html>
-
