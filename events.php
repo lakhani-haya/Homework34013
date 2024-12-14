@@ -3,7 +3,7 @@ $pageTitle = 'Events';
 include 'view-header.php';
 include 'dbconfig.php';
 
-// Fetch events from the database
+
 $query = "SELECT * FROM Events";
 $stmt = $conn->query($query);
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -11,12 +11,12 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h1>Events</h1>
 
-<!-- Button to trigger add event modal -->
+
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newEventModal">
   Add Event
 </button>
 
-<!-- Event Table -->
+
 <table class="table table-striped mt-4">
   <thead>
     <tr>
@@ -41,7 +41,7 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </tbody>
 </table>
 
-<!-- Modal for Adding New Event -->
+
 <div class="modal fade" id="newEventModal" tabindex="-1" aria-labelledby="newEventModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -70,7 +70,7 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Modal for Editing Event -->
+
 <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -100,7 +100,7 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Custom Notification Modal -->
+
 <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -118,11 +118,11 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Fill the edit modal with data when the Edit button is clicked
+  
   var editEventModal = document.getElementById('editEventModal');
   editEventModal.addEventListener('show.bs.modal', function (event) {
     var button = event.relatedTarget;
@@ -138,14 +138,14 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
     modal.querySelector('#LocationEdit').value = location;
   });
 
-  // Function to show notification modal
+  
   function showNotification(message) {
     document.getElementById('notificationMessage').innerText = message;
     var notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
     notificationModal.show();
   }
 
-  // Check for session message on page load (success or error message)
+  
   <?php if (isset($_SESSION['message'])): ?>
     showNotification('<?php echo $_SESSION['message']; ?>');
     <?php unset($_SESSION['message']); ?>
