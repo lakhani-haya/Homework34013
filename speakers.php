@@ -18,18 +18,15 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h1>Speakers</h1>
 
-<!-- Button to trigger Add Speaker Modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSpeakerModal">
   Add Speaker
 </button>
 
-<!-- Filter by Session -->
 <form method="GET" class="mt-3">
     <label for="session_id">Filter by Session:</label>
     <select name="session_id" id="session_id" class="form-control" onchange="this.form.submit()">
         <option value="">Select Session</option>
         <?php
-        // Fetch sessions for the dropdown
         $sessionQuery = "SELECT SessionID, SessionName FROM Sessions";
         $sessionStmt = $conn->prepare($sessionQuery);
         $sessionStmt->execute();
@@ -42,7 +39,6 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </select>
 </form>
 
-<!-- Speakers Table -->
 <table class="table table-striped mt-4">
     <thead>
         <tr>
@@ -65,7 +61,6 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </tbody>
 </table>
 
-<!-- Modal for Adding New Speaker -->
 <div class="modal fade" id="newSpeakerModal" tabindex="-1" aria-labelledby="newSpeakerModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -87,7 +82,6 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <label for="SessionID" class="form-label">Select Session</label>
             <select class="form-control" id="SessionID" name="SessionID" required>
               <?php
-              // Fetch sessions for the dropdown
               foreach ($sessions as $session) {
                 echo "<option value='" . $session['SessionID'] . "'>" . htmlspecialchars($session['SessionName']) . "</option>";
               }
@@ -101,7 +95,6 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Modal for Editing Speaker -->
 <div class="modal fade" id="editSpeakerModal" tabindex="-1" aria-labelledby="editSpeakerModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -124,7 +117,6 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <label for="SessionIDEdit" class="form-label">Select Session</label>
             <select class="form-control" id="SessionIDEdit" name="SessionID" required>
               <?php
-              // Fetch sessions for the dropdown
               foreach ($sessions as $session) {
                 echo "<option value='" . $session['SessionID'] . "'>" . htmlspecialchars($session['SessionName']) . "</option>";
               }
@@ -138,7 +130,6 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Custom Notification Modal -->
 <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -156,11 +147,9 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Fill the edit modal with data when the Edit button is clicked
   var editSpeakerModal = document.getElementById('editSpeakerModal');
   editSpeakerModal.addEventListener('show.bs.modal', function (event) {
     var button = event.relatedTarget;
@@ -176,14 +165,12 @@ $speakers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     modal.querySelector('#SessionIDEdit').value = sessionID;
   });
 
-  // Function to show notification modal
   function showNotification(message) {
     document.getElementById('notificationMessage').innerText = message;
     var notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
     notificationModal.show();
   }
 
-  // Check for session message on page load (success or error message)
   <?php if (isset($_SESSION['message'])): ?>
     showNotification('<?php echo $_SESSION['message']; ?>');
     <?php unset($_SESSION['message']); ?>
