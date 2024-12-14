@@ -5,7 +5,6 @@ $action = $_GET['action'] ?? '';
 $eventID = $_GET['event_id'] ?? 0;
 
 if ($action == 'add') {
-    // Add a new participant
     $name = $_POST['name'];
     $email = $_POST['email'];
     $event_id = $_POST['event_id'];
@@ -24,15 +23,16 @@ if ($action == 'add') {
 }
 
 if ($action == 'edit') {
-    // Edit an existing participant
     $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
+    $event_id = $_POST['event_id'];
 
-    $query = "UPDATE Participants SET ParticipantName = :name, Email = :email WHERE ParticipantID = :id";
+    $query = "UPDATE Participants SET ParticipantName = :name, Email = :email, EventID = :event_id WHERE ParticipantID = :id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':event_id', $event_id);
     $stmt->bindParam(':id', $id);
     $stmt->execute();
 
@@ -43,7 +43,6 @@ if ($action == 'edit') {
 }
 
 if ($action == 'delete') {
-    // Delete a participant
     $id = $_GET['id'];
 
     $query = "DELETE FROM Participants WHERE ParticipantID = :id";
@@ -57,3 +56,4 @@ if ($action == 'delete') {
     exit;
 }
 ?>
+
