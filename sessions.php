@@ -111,7 +111,7 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <label for="EventID" class="form-label">Select Event</label>
             <select class="form-control" id="EventIDEdit" name="EventID" required>
               <?php
-              // Fetch events for the dropdown
+             
               foreach ($events as $event) {
                 echo "<option value='" . $event['EventID'] . "'>" . htmlspecialchars($event['EventName']) . "</option>";
               }
