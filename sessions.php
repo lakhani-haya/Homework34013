@@ -18,12 +18,12 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h1>Sessions</h1>
 
-<!-- Button to trigger add session modal -->
+
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSessionModal">
   Add Session
 </button>
 
-<!-- Sessions Table -->
+
 <table class="table table-striped mt-4">
     <thead>
         <tr>
@@ -48,7 +48,7 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </tbody>
 </table>
 
-<!-- Modal for Adding New Session -->
+
 <div class="modal fade" id="newSessionModal" tabindex="-1" aria-labelledby="newSessionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -88,7 +88,7 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Modal for Editing Session -->
+
 <div class="modal fade" id="editSessionModal" tabindex="-1" aria-labelledby="editSessionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -125,7 +125,7 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Custom Notification Modal -->
+
 <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -143,11 +143,11 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 </div>
 
-<!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Fill the edit modal with data when the Edit button is clicked
+  
   var editSessionModal = document.getElementById('editSessionModal');
   editSessionModal.addEventListener('show.bs.modal', function (event) {
     var button = event.relatedTarget;
@@ -163,14 +163,14 @@ $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     modal.querySelector('#EventIDEdit').value = eventID;
   });
 
-  // Function to show notification modal
+
   function showNotification(message) {
     document.getElementById('notificationMessage').innerText = message;
     var notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
     notificationModal.show();
   }
 
-  // Check for session message on page load (success or error message)
+  
   <?php if (isset($_SESSION['message'])): ?>
     showNotification('<?php echo $_SESSION['message']; ?>');
     <?php unset($_SESSION['message']); ?>
